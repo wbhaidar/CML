@@ -1,0 +1,116 @@
+{
+    "4c29536e-ec21-4e7a-a4df-bc909dbc1297": {
+        "state": "STOPPED",
+        "created": "2024-08-02T05:49:34+00:00",
+        "modified": "2024-08-28T04:29:37+00:00",
+        "lab_title": "Test1",
+        "lab_description": "",
+        "lab_notes": "",
+        "owner": "00000000-0000-4000-a000-000000000000",
+        "owner_username": "admin",
+        "owner_fullname": "Default Admin",
+        "node_count": 20,
+        "link_count": 2,
+        "id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "groups": [
+            {
+                "id": "8fb6afe6-53b8-4024-90ee-3012e1224684",
+                "name": "defaultgroup",
+                "permission": "read_only"
+            }
+        ],
+        "lab_nodes": [
+            "0d945f02-191c-41bf-a76d-dbfc879b3d71",
+            "129ee2dc-f58a-420d-b06a-7cdec6c6b6a2",
+            "cdd771ee-0e0a-4691-a2db-49ed37a28318",
+            "bf789fb9-a6c9-4f7a-9170-8d591925aea7",
+            "8f35f989-e8ce-475b-9df8-ff36aa16ce3e",
+            "9e7b84df-19a5-4f5a-a54c-8313a629791e",
+            "2960bbb4-b8f8-4a40-b536-30491c5462bf",
+            "01aa0daa-6fab-4c02-a8e9-97343283a33b",
+            "30f5832f-33a1-465d-bb14-957b845bcd06",
+            "14f6d22c-a67d-4aa8-9dd9-0fea3263b458",
+            "3400ad97-5f7a-4171-9dc4-bf6c76949a12",
+            "0ecb5894-cf1c-43f0-9ba0-dd3039c959cb",
+            "3eba3b94-ab89-47aa-980b-5dd5f2dfc956",
+            "b6d33491-3d12-4b6b-ace8-06e2ddf4689c",
+            "e9536fd1-7292-4bc3-a2da-37436824f948",
+            "78d62ac6-e344-41e2-ad40-5dccba6bc6c6",
+            "be778906-78b0-4d6e-b4de-62ab4b74b181",
+            "7f893788-86a0-496c-b9f3-eaaf3dbb26b0",
+            "95c2549f-3f9f-4e15-9d79-f73a62bfa5b9",
+            "442aa5c3-5cbf-42bf-9427-c8b5334e5153"
+        ],
+        "lab_links": [
+            "a03f9e09-81dd-4d0c-b790-a8aacc084f42",
+            "72af8459-b330-4ed7-a189-f850e1b19487"
+        ]
+    },
+    "d520a701-f4ac-4be1-8484-efb92bda9983": {
+        "state": "STARTED",
+        "created": "2024-08-07T03:04:10+00:00",
+        "modified": "2024-08-28T04:29:20+00:00",
+        "lab_title": "Test2",
+        "lab_description": "",
+        "lab_notes": "",
+        "owner": "00000000-0000-4000-a000-000000000000",
+        "owner_username": "admin",
+        "owner_fullname": "Default Admin",
+        "node_count": 11,
+        "link_count": 6,
+        "id": "d520a701-f4ac-4be1-8484-efb92bda9983",
+        "groups": [],
+        "lab_nodes": [
+            "b1688ff9-5dcc-4b34-8ff9-b24874b52373",
+            "730409cb-bd73-4b37-92a3-5da44e287a67",
+            "742603f2-134a-42ba-b793-d3c4ad761906",
+            "55ea9299-e53a-4311-a583-c478c280635a",
+            "cefd1c96-aaef-4f70-8d8f-2c96e45fe54d",
+            "49779eb7-b57b-4d10-b6f1-47924da4b4d3",
+            "c541e6ca-73ff-4fa1-abf8-6aeed05587f4",
+            "089e9c5a-7767-46e0-9fef-94803ca9204c",
+            "665af094-f044-439c-8b7b-ebd06028ed0f",
+            "abc203d9-4ba9-4c2b-9a2f-935204a14eee",
+            "9c63013e-2277-4f69-9a1a-c35e042587e5"
+        ],
+        "lab_links": [
+            "a04946f5-c40f-4ae4-98ac-87d65c3de83f",
+            "f76df2f5-96be-4cfd-bdeb-7bbe20c0b858",
+            "8d3db41d-d271-41af-8a1c-b4fb173b0ec1",
+            "775bddfc-435b-4226-9989-9b2396cfae88",
+            "c8074596-4c49-4f91-8d36-e810a53eebe8",
+            "9ffa8699-3d2f-4f5b-b9a9-fc281c6cb74e"
+        ]
+    },
+    "a4d7ce1c-04b1-41f2-bb88-d3b13e7dccaa": {
+        "state": "DEFINED_ON_CORE",
+        "created": "2024-10-22T02:34:10+00:00",
+        "modified": "2024-10-22T02:34:10+00:00",
+        "lab_title": "Lab at Tue 02:34 AM",
+        "lab_description": "",
+        "lab_notes": "",
+        "owner": "cae4c287-07ae-4d64-8d69-8c8fca5442df",
+        "owner_username": "chinmasw",
+        "owner_fullname": "",
+        "node_count": 2,
+        "link_count": 0,
+        "id": "a4d7ce1c-04b1-41f2-bb88-d3b13e7dccaa",
+        "groups": [
+            {
+                "id": "47122f30-fa2a-4497-b1bc-457d425b507c",
+                "name": "test",
+                "permission": "read_write"
+            },
+            {
+                "id": "8fb6afe6-53b8-4024-90ee-3012e1224684",
+                "name": "defaultgroup",
+                "permission": "read_only"
+            }
+        ],
+        "lab_nodes": [
+            "985c0a4d-dca9-4ff4-be34-a25ab903466c",
+            "dd09a6fa-bbd2-4858-8d83-4a28d9a0bef1"
+        ],
+        "lab_links": []
+    }
+}

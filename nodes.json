@@ -1,0 +1,1857 @@
+{
+    "0d945f02-191c-41bf-a76d-dbfc879b3d71": {
+        "boot_disk_size": 2,
+        "configuration": "hostname inserthostname-here",
+        "cpu_limit": 100,
+        "cpus": 1,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "0d945f02-191c-41bf-a76d-dbfc879b3d71",
+        "image_definition": "iosv-159-3-m8",
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "iosv-0",
+        "node_definition": "iosv",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 512,
+        "tags": [],
+        "x": 40,
+        "y": -80,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "f59c3406-44ac-4093-8eda-1e7f130a6aca",
+            "boot_disk_size": 2,
+            "cpu_limit": 100,
+            "cpus": 1,
+            "data_volume": 0,
+            "ram": 512,
+            "image_definition": "iosv-159-3-m8",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "223c949d-ae1c-4416-938c-12ce3503291e",
+                    "device_number": 0,
+                    "label": "Line #0"
+                },
+                {
+                    "console_key": "c45125c9-ca0b-4a45-874b-327cadf7e495",
+                    "device_number": 1,
+                    "label": "Line #1"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "f59c3406-44ac-4093-8eda-1e7f130a6aca",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "223c949d-ae1c-4416-938c-12ce3503291e",
+                "device_number": 0,
+                "label": "Line #0"
+            },
+            {
+                "console_key": "c45125c9-ca0b-4a45-874b-327cadf7e495",
+                "device_number": 1,
+                "label": "Line #1"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": null,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "129ee2dc-f58a-420d-b06a-7cdec6c6b6a2": {
+        "boot_disk_size": 1,
+        "configuration": "hostname inserthostname-here\n!\n! In order to avoid entering a configuration dialog\n! on boot, please ensure that all ethernet interfaces\n! have some ip configuration present here such as the\n! example below:\n!\ninterface range Ethernet 0/0 - 3\n no ip address\n shutdown\n!\nend\n",
+        "cpu_limit": 100,
+        "cpus": 0,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "129ee2dc-f58a-420d-b06a-7cdec6c6b6a2",
+        "image_definition": "iol-xe-17-12-01",
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "iol-0",
+        "node_definition": "iol-xe",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 1024,
+        "tags": [],
+        "x": 40,
+        "y": -160,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "f59c3406-44ac-4093-8eda-1e7f130a6aca",
+            "boot_disk_size": 1,
+            "cpu_limit": 100,
+            "cpus": 0,
+            "data_volume": 0,
+            "ram": 1024,
+            "image_definition": "iol-xe-17-12-01",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "b868993f-d2a8-49e3-b5f8-49759218a06f",
+                    "device_number": 0,
+                    "label": "Line #0"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": 1
+        },
+        "compute_id": "f59c3406-44ac-4093-8eda-1e7f130a6aca",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "b868993f-d2a8-49e3-b5f8-49759218a06f",
+                "device_number": 0,
+                "label": "Line #0"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": 1,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "cdd771ee-0e0a-4691-a2db-49ed37a28318": {
+        "boot_disk_size": 11,
+        "configuration": "hostname inserthostname-here\n# workaround for booting to loader> prompt\necho 'from cli import cli' > set_boot.py\necho 'import json' >> set_boot.py\necho 'import os' >> set_boot.py\necho 'import time' >> set_boot.py\necho 'bootimage = json.loads(cli(\"show version | json\"))[\"kick_file_name\"]' >> set_boot.py\necho 'set_boot = cli(\"conf t ; boot nxos {} ; no event manager applet BOOTCONFIG\".format(bootimage))' >> set_boot.py\necho 'i = 0' >> set_boot.py\necho 'while i < 10:' >> set_boot.py\necho '    try:' >> set_boot.py\necho '        save_config = cli(\"copy running-config startup-config\")' >> set_boot.py\necho '        break' >> set_boot.py\necho '    except Exception:' >> set_boot.py\necho '        i += 1' >> set_boot.py\necho '        time.sleep(1)' >> set_boot.py\necho 'os.remove(\"/bootflash/set_boot.py\")' >> set_boot.py\nevent manager applet BOOTCONFIG\n event syslog pattern \"Configured from vty\"\n action 1.0 cli python bootflash:set_boot.py\n# minimum needed config to login\nno password strength-check\nusername admin role network-admin\nusername admin password cisco role network-admin\nusername cisco role network-admin\nusername cisco password cisco role network-admin\n",
+        "cpu_limit": 100,
+        "cpus": 2,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "cdd771ee-0e0a-4691-a2db-49ed37a28318",
+        "image_definition": "nxosv9300-10-4-2-f",
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "nxos9000-0",
+        "node_definition": "nxosv9000",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 8192,
+        "tags": [],
+        "x": -200,
+        "y": -160,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "f59c3406-44ac-4093-8eda-1e7f130a6aca",
+            "boot_disk_size": 11,
+            "cpu_limit": 100,
+            "cpus": 2,
+            "data_volume": 0,
+            "ram": 8192,
+            "image_definition": "nxosv9300-10-4-2-f",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "cde32621-4e03-4a98-9281-edacb41bfcde",
+                    "device_number": 0,
+                    "label": "Line #0"
+                },
+                {
+                    "console_key": "0a4236ea-f156-4d0c-9a44-90ec188fec6d",
+                    "device_number": 1,
+                    "label": "Line #1"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "f59c3406-44ac-4093-8eda-1e7f130a6aca",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "cde32621-4e03-4a98-9281-edacb41bfcde",
+                "device_number": 0,
+                "label": "Line #0"
+            },
+            {
+                "console_key": "0a4236ea-f156-4d0c-9a44-90ec188fec6d",
+                "device_number": 1,
+                "label": "Line #1"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": null,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "bf789fb9-a6c9-4f7a-9170-8d591925aea7": {
+        "boot_disk_size": null,
+        "configuration": "bridge1",
+        "cpu_limit": null,
+        "cpus": null,
+        "data_volume": null,
+        "hide_links": false,
+        "id": "bf789fb9-a6c9-4f7a-9170-8d591925aea7",
+        "image_definition": null,
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "ext-conn-1",
+        "node_definition": "external_connector",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": null,
+        "tags": [],
+        "x": -160,
+        "y": -40,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+            "boot_disk_size": null,
+            "cpu_limit": null,
+            "cpus": null,
+            "data_volume": null,
+            "ram": null,
+            "image_definition": null,
+            "vnc_key": null,
+            "serial_consoles": [],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+        "vnc_key": null,
+        "serial_consoles": [],
+        "resource_pool": null,
+        "iol_app_id": null
+    },
+    "8f35f989-e8ce-475b-9df8-ff36aa16ce3e": {
+        "boot_disk_size": 1,
+        "configuration": "hostname inserthostname-here\n!\n! In order to avoid entering a configuration dialog\n! on boot, please ensure that all ethernet interfaces\n! have some ip configuration present here such as the\n! example below:\n!\ninterface range Ethernet 0/0 - 3\n no ip address\n shutdown\n!\nend\n",
+        "cpu_limit": 100,
+        "cpus": 0,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "8f35f989-e8ce-475b-9df8-ff36aa16ce3e",
+        "image_definition": "iol-xe-17-12-01",
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "iol-1",
+        "node_definition": "iol-xe",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 1024,
+        "tags": [],
+        "x": -560,
+        "y": -80,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+            "boot_disk_size": 1,
+            "cpu_limit": 100,
+            "cpus": 0,
+            "data_volume": 0,
+            "ram": 1024,
+            "image_definition": "iol-xe-17-12-01",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "68801c4a-59aa-4477-970f-1df2ad304804",
+                    "device_number": 0,
+                    "label": "Line #0"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": 2
+        },
+        "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "68801c4a-59aa-4477-970f-1df2ad304804",
+                "device_number": 0,
+                "label": "Line #0"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": 2,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "9e7b84df-19a5-4f5a-a54c-8313a629791e": {
+        "boot_disk_size": null,
+        "configuration": null,
+        "cpu_limit": null,
+        "cpus": null,
+        "data_volume": null,
+        "hide_links": false,
+        "id": "9e7b84df-19a5-4f5a-a54c-8313a629791e",
+        "image_definition": null,
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "unmanaged-switch-0",
+        "node_definition": "unmanaged_switch",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": null,
+        "tags": [],
+        "x": -720,
+        "y": -120,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+            "boot_disk_size": null,
+            "cpu_limit": null,
+            "cpus": null,
+            "data_volume": null,
+            "ram": null,
+            "image_definition": null,
+            "vnc_key": null,
+            "serial_consoles": [],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+        "vnc_key": null,
+        "serial_consoles": [],
+        "resource_pool": null,
+        "iol_app_id": null
+    },
+    "2960bbb4-b8f8-4a40-b536-30491c5462bf": {
+        "boot_disk_size": 8,
+        "configuration": "hostname inserthostname-here\nend",
+        "cpu_limit": 100,
+        "cpus": 1,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "2960bbb4-b8f8-4a40-b536-30491c5462bf",
+        "image_definition": "cat8000v-17-13-01a",
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "cat8000v-0",
+        "node_definition": "cat8000v",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 4096,
+        "tags": [],
+        "x": -960,
+        "y": -80,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+            "boot_disk_size": 8,
+            "cpu_limit": 100,
+            "cpus": 1,
+            "data_volume": 0,
+            "ram": 4096,
+            "image_definition": "cat8000v-17-13-01a",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "ca3c37c5-289d-43eb-a031-ce48508986b1",
+                    "device_number": 0,
+                    "label": "Line #0"
+                },
+                {
+                    "console_key": "e9b507a7-b1a1-4da4-89d1-1143479a4863",
+                    "device_number": 1,
+                    "label": "Line #1"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "ca3c37c5-289d-43eb-a031-ce48508986b1",
+                "device_number": 0,
+                "label": "Line #0"
+            },
+            {
+                "console_key": "e9b507a7-b1a1-4da4-89d1-1143479a4863",
+                "device_number": 1,
+                "label": "Line #1"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": null,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "01aa0daa-6fab-4c02-a8e9-97343283a33b": {
+        "boot_disk_size": 9,
+        "configuration": "hostname inserthostname-here\n!\nenable password Cisco1@3\n!\nend",
+        "cpu_limit": 100,
+        "cpus": 1,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "01aa0daa-6fab-4c02-a8e9-97343283a33b",
+        "image_definition": "asav-9-20-2",
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "asav-0",
+        "node_definition": "asav",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 2048,
+        "tags": [],
+        "x": -760,
+        "y": 0,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+            "boot_disk_size": 9,
+            "cpu_limit": 100,
+            "cpus": 1,
+            "data_volume": 0,
+            "ram": 2048,
+            "image_definition": "asav-9-20-2",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "cb438697-61c6-4312-93a0-46d2736f6e74",
+                    "device_number": 0,
+                    "label": "Line #0"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "cb438697-61c6-4312-93a0-46d2736f6e74",
+                "device_number": 0,
+                "label": "Line #0"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": null,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "30f5832f-33a1-465d-bb14-957b845bcd06": {
+        "boot_disk_size": 8,
+        "configuration": "hostname inserthostname-here\nend",
+        "cpu_limit": 100,
+        "cpus": 1,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "30f5832f-33a1-465d-bb14-957b845bcd06",
+        "image_definition": "csr1000v-17-03-08a",
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "csr1000v-0",
+        "node_definition": "csr1000v",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 3072,
+        "tags": [],
+        "x": -920,
+        "y": 40,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+            "boot_disk_size": 8,
+            "cpu_limit": 100,
+            "cpus": 1,
+            "data_volume": 0,
+            "ram": 3072,
+            "image_definition": "csr1000v-17-03-08a",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "b2c97c5f-a509-4bdf-afc3-9b4e69a083a5",
+                    "device_number": 0,
+                    "label": "Line #0"
+                },
+                {
+                    "console_key": "ff0b778f-ebc1-4415-8488-a2dcd24b8e45",
+                    "device_number": 1,
+                    "label": "Line #1"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "b2c97c5f-a509-4bdf-afc3-9b4e69a083a5",
+                "device_number": 0,
+                "label": "Line #0"
+            },
+            {
+                "console_key": "ff0b778f-ebc1-4415-8488-a2dcd24b8e45",
+                "device_number": 1,
+                "label": "Line #1"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": null,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "14f6d22c-a67d-4aa8-9dd9-0fea3263b458": {
+        "boot_disk_size": 64,
+        "configuration": "hostname inserthostname-here\nusername cisco\ngroup root-lr\ngroup cisco-support\npassword cisco\n!\nusername admin\ngroup root-lr\ngroup cisco-support\npassword cisco\n!\nusername lab\ngroup root-lr\ngroup cisco-support\npassword cisco\n!\nend\n",
+        "cpu_limit": 100,
+        "cpus": 4,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "14f6d22c-a67d-4aa8-9dd9-0fea3263b458",
+        "image_definition": "iosxrv9000-7-11-1",
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "xr9kv-0",
+        "node_definition": "iosxrv9000",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 20480,
+        "tags": [],
+        "x": -1080,
+        "y": 0,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "f59c3406-44ac-4093-8eda-1e7f130a6aca",
+            "boot_disk_size": 64,
+            "cpu_limit": 100,
+            "cpus": 4,
+            "data_volume": 0,
+            "ram": 20480,
+            "image_definition": "iosxrv9000-7-11-1",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "4c6e395f-1f71-4acb-b4db-e5af44ceb0e8",
+                    "device_number": 0,
+                    "label": "Line #0"
+                },
+                {
+                    "console_key": "0fe373dd-7f35-45e3-970e-4807a9896f94",
+                    "device_number": 1,
+                    "label": "Line #1"
+                },
+                {
+                    "console_key": "f6f8865d-21e7-4cfe-973f-09c3e496bdac",
+                    "device_number": 2,
+                    "label": "Line #2"
+                },
+                {
+                    "console_key": "9c553db7-c31e-43bb-8518-ad7189c48a03",
+                    "device_number": 3,
+                    "label": "Line #3"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "f59c3406-44ac-4093-8eda-1e7f130a6aca",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "4c6e395f-1f71-4acb-b4db-e5af44ceb0e8",
+                "device_number": 0,
+                "label": "Line #0"
+            },
+            {
+                "console_key": "0fe373dd-7f35-45e3-970e-4807a9896f94",
+                "device_number": 1,
+                "label": "Line #1"
+            },
+            {
+                "console_key": "f6f8865d-21e7-4cfe-973f-09c3e496bdac",
+                "device_number": 2,
+                "label": "Line #2"
+            },
+            {
+                "console_key": "9c553db7-c31e-43bb-8518-ad7189c48a03",
+                "device_number": 3,
+                "label": "Line #3"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": null,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "3400ad97-5f7a-4171-9dc4-bf6c76949a12": {
+        "boot_disk_size": 16,
+        "configuration": "hostname inserthostname-here\n!\nend",
+        "cpu_limit": 100,
+        "cpus": 4,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "3400ad97-5f7a-4171-9dc4-bf6c76949a12",
+        "image_definition": "cat9000v-q200-17-12-01prd9",
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "cat9000v-q200-0",
+        "node_definition": "cat9000v-q200",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 18432,
+        "tags": [],
+        "x": -840,
+        "y": -40,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+            "boot_disk_size": 16,
+            "cpu_limit": 100,
+            "cpus": 4,
+            "data_volume": 0,
+            "ram": 18432,
+            "image_definition": "cat9000v-q200-17-12-01prd9",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "999bde91-c2cb-499a-b584-b2acf930a9f0",
+                    "device_number": 0,
+                    "label": "Line #0"
+                },
+                {
+                    "console_key": "a42dcc03-b8de-4968-85ef-7b2622bbfbd5",
+                    "device_number": 1,
+                    "label": "Line #1"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "999bde91-c2cb-499a-b584-b2acf930a9f0",
+                "device_number": 0,
+                "label": "Line #0"
+            },
+            {
+                "console_key": "a42dcc03-b8de-4968-85ef-7b2622bbfbd5",
+                "device_number": 1,
+                "label": "Line #1"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": null,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "0ecb5894-cf1c-43f0-9ba0-dd3039c959cb": {
+        "boot_disk_size": 16,
+        "configuration": "hostname inserthostname-here\n!\nend",
+        "cpu_limit": 100,
+        "cpus": 4,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "0ecb5894-cf1c-43f0-9ba0-dd3039c959cb",
+        "image_definition": "cat9000v-uadp-17-12-01prd9",
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "cat9000v-uadp-0",
+        "node_definition": "cat9000v-uadp",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 18432,
+        "tags": [],
+        "x": -840,
+        "y": 80,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "f59c3406-44ac-4093-8eda-1e7f130a6aca",
+            "boot_disk_size": 16,
+            "cpu_limit": 100,
+            "cpus": 4,
+            "data_volume": 0,
+            "ram": 18432,
+            "image_definition": "cat9000v-uadp-17-12-01prd9",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "b4341350-acb5-4357-8f0e-3176cfce470f",
+                    "device_number": 0,
+                    "label": "Line #0"
+                },
+                {
+                    "console_key": "6127e078-ed4f-46ef-9def-a509574c66f5",
+                    "device_number": 1,
+                    "label": "Line #1"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "f59c3406-44ac-4093-8eda-1e7f130a6aca",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "b4341350-acb5-4357-8f0e-3176cfce470f",
+                "device_number": 0,
+                "label": "Line #0"
+            },
+            {
+                "console_key": "6127e078-ed4f-46ef-9def-a509574c66f5",
+                "device_number": 1,
+                "label": "Line #1"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": null,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "3eba3b94-ab89-47aa-980b-5dd5f2dfc956": {
+        "boot_disk_size": 2,
+        "configuration": "# this is a shell script which will be sourced at boot\nhostname inserthostname-here\n# configurable user account\nUSERNAME=cisco\nPASSWORD=cisco\n",
+        "cpu_limit": 100,
+        "cpus": 1,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "3eba3b94-ab89-47aa-980b-5dd5f2dfc956",
+        "image_definition": "alpine-trex-3-19-1",
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "trex-0",
+        "node_definition": "trex",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 512,
+        "tags": [],
+        "x": -680,
+        "y": 80,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "f59c3406-44ac-4093-8eda-1e7f130a6aca",
+            "boot_disk_size": 2,
+            "cpu_limit": 100,
+            "cpus": 1,
+            "data_volume": 0,
+            "ram": 512,
+            "image_definition": "alpine-trex-3-19-1",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "a83859c8-94a9-4109-964b-b6767639ef46",
+                    "device_number": 0,
+                    "label": "Line #0"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "f59c3406-44ac-4093-8eda-1e7f130a6aca",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "a83859c8-94a9-4109-964b-b6767639ef46",
+                "device_number": 0,
+                "label": "Line #0"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": null,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "b6d33491-3d12-4b6b-ace8-06e2ddf4689c": {
+        "boot_disk_size": 64,
+        "configuration": "#cloud-config\nhostname: inserthostname-here\nmanage_etc_hosts: True\nsystem_info:\n  default_user:\n    name: cisco\npassword: cisco\nchpasswd: { expire: False }\nssh_pwauth: True\nssh_authorized_keys:\n  - your-ssh-pubkey-line-goes-here\n",
+        "cpu_limit": 100,
+        "cpus": 1,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "b6d33491-3d12-4b6b-ace8-06e2ddf4689c",
+        "image_definition": "ubuntu-22-04-20240126",
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "ubuntu-0",
+        "node_definition": "ubuntu",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 2048,
+        "tags": [],
+        "x": -640,
+        "y": 40,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "f59c3406-44ac-4093-8eda-1e7f130a6aca",
+            "boot_disk_size": 64,
+            "cpu_limit": 100,
+            "cpus": 1,
+            "data_volume": 0,
+            "ram": 2048,
+            "image_definition": "ubuntu-22-04-20240126",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "b471684b-b093-4d8e-b636-440b5a3435bf",
+                    "device_number": 0,
+                    "label": "Line #0"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "f59c3406-44ac-4093-8eda-1e7f130a6aca",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "b471684b-b093-4d8e-b636-440b5a3435bf",
+                "device_number": 0,
+                "label": "Line #0"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": null,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "e9536fd1-7292-4bc3-a2da-37436824f948": {
+        "boot_disk_size": 16,
+        "configuration": "# this is a shell script which will be sourced at boot\nhostname inserthostname-here\n# configurable user account\nUSERNAME=cisco\nPASSWORD=cisco\n# no password for tc user by default\nTC_PASSWORD=\n",
+        "cpu_limit": 100,
+        "cpus": 1,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "e9536fd1-7292-4bc3-a2da-37436824f948",
+        "image_definition": "server-tcl-14-0",
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "server-0",
+        "node_definition": "server",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 128,
+        "tags": [],
+        "x": -680,
+        "y": -40,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+            "boot_disk_size": 16,
+            "cpu_limit": 100,
+            "cpus": 1,
+            "data_volume": 0,
+            "ram": 128,
+            "image_definition": "server-tcl-14-0",
+            "vnc_key": "d0137ce1-04b0-4531-a8c3-7cd9bc850e57",
+            "serial_consoles": [
+                {
+                    "console_key": "2c4adf15-84f0-407e-9ca4-22363f135193",
+                    "device_number": 0,
+                    "label": "Line #0"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+        "vnc_key": "d0137ce1-04b0-4531-a8c3-7cd9bc850e57",
+        "serial_consoles": [
+            {
+                "console_key": "2c4adf15-84f0-407e-9ca4-22363f135193",
+                "device_number": 0,
+                "label": "Line #0"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": null,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "78d62ac6-e344-41e2-ad40-5dccba6bc6c6": {
+        "boot_disk_size": 16,
+        "configuration": "# this is a shell script which will be sourced at boot\nhostname inserthostname-here\n# configurable user account\nUSERNAME=cisco\nPASSWORD=cisco\n",
+        "cpu_limit": 100,
+        "cpus": 1,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "78d62ac6-e344-41e2-ad40-5dccba6bc6c6",
+        "image_definition": "alpine-desktop-3-19-1",
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "desktop-0",
+        "node_definition": "desktop",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 512,
+        "tags": [],
+        "x": -720,
+        "y": 80,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+            "boot_disk_size": 16,
+            "cpu_limit": 100,
+            "cpus": 1,
+            "data_volume": 0,
+            "ram": 512,
+            "image_definition": "alpine-desktop-3-19-1",
+            "vnc_key": "ca5cdd86-3996-4e96-87b2-4387f35e8c3f",
+            "serial_consoles": [
+                {
+                    "console_key": "bbf0d58c-d472-4447-86df-ca2b8180c435",
+                    "device_number": 0,
+                    "label": "Line #0"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+        "vnc_key": "ca5cdd86-3996-4e96-87b2-4387f35e8c3f",
+        "serial_consoles": [
+            {
+                "console_key": "bbf0d58c-d472-4447-86df-ca2b8180c435",
+                "device_number": 0,
+                "label": "Line #0"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": null,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "be778906-78b0-4d6e-b4de-62ab4b74b181": {
+        "boot_disk_size": 2,
+        "configuration": "# this is a shell script which will be sourced at boot\nhostname inserthostname-here\n# configurable user account\nUSERNAME=cisco\nPASSWORD=cisco\n# WAN Emulator configuration\nLATENCY=\"100\"\nJITTER=\"0\"\nLOSS=\"0.0\"\nBANDWIDTH=\"512\"\n",
+        "cpu_limit": 100,
+        "cpus": 1,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "be778906-78b0-4d6e-b4de-62ab4b74b181",
+        "image_definition": "alpine-wanem-3-19-1",
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "wan-em-0",
+        "node_definition": "wan_emulator",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 512,
+        "tags": [],
+        "x": -1080,
+        "y": -120,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+            "boot_disk_size": 2,
+            "cpu_limit": 100,
+            "cpus": 1,
+            "data_volume": 0,
+            "ram": 512,
+            "image_definition": "alpine-wanem-3-19-1",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "69ab413f-8dca-4bac-abb0-25e33d984ab4",
+                    "device_number": 0,
+                    "label": "Line #0"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "69ab413f-8dca-4bac-abb0-25e33d984ab4",
+                "device_number": 0,
+                "label": "Line #0"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": null,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "7f893788-86a0-496c-b9f3-eaaf3dbb26b0": {
+        "boot_disk_size": null,
+        "configuration": null,
+        "cpu_limit": null,
+        "cpus": null,
+        "data_volume": null,
+        "hide_links": false,
+        "id": "7f893788-86a0-496c-b9f3-eaaf3dbb26b0",
+        "image_definition": null,
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "unmanaged-switch-1",
+        "node_definition": "unmanaged_switch",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": null,
+        "tags": [],
+        "x": -360,
+        "y": 0,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+            "boot_disk_size": null,
+            "cpu_limit": null,
+            "cpus": null,
+            "data_volume": null,
+            "ram": null,
+            "image_definition": null,
+            "vnc_key": null,
+            "serial_consoles": [],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+        "vnc_key": null,
+        "serial_consoles": [],
+        "resource_pool": null,
+        "iol_app_id": null
+    },
+    "b1688ff9-5dcc-4b34-8ff9-b24874b52373": {
+        "boot_disk_size": null,
+        "configuration": "bridge1",
+        "cpu_limit": null,
+        "cpus": null,
+        "data_volume": null,
+        "hide_links": false,
+        "id": "b1688ff9-5dcc-4b34-8ff9-b24874b52373",
+        "image_definition": null,
+        "lab_id": "d520a701-f4ac-4be1-8484-efb92bda9983",
+        "label": "ext-conn-0",
+        "node_definition": "external_connector",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": null,
+        "tags": [],
+        "x": -280,
+        "y": -80,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+            "boot_disk_size": null,
+            "cpu_limit": null,
+            "cpus": null,
+            "data_volume": null,
+            "ram": null,
+            "image_definition": null,
+            "vnc_key": null,
+            "serial_consoles": [],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+        "vnc_key": null,
+        "serial_consoles": [],
+        "resource_pool": null,
+        "iol_app_id": null
+    },
+    "730409cb-bd73-4b37-92a3-5da44e287a67": {
+        "boot_disk_size": 1,
+        "configuration": "hostname inserthostname-here\n!\n! In order to avoid entering a configuration dialog\n! on boot, please ensure that all ethernet interfaces\n! have some ip configuration present here such as the\n! example below:\n!\ninterface range Ethernet 0/0 - 3\n no ip address\n shutdown\n!\nend\n",
+        "cpu_limit": 100,
+        "cpus": 0,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "730409cb-bd73-4b37-92a3-5da44e287a67",
+        "image_definition": "iol-xe-17-12-01",
+        "lab_id": "d520a701-f4ac-4be1-8484-efb92bda9983",
+        "label": "iol-0",
+        "node_definition": "iol-xe",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 1024,
+        "tags": [],
+        "x": -160,
+        "y": -80,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+            "boot_disk_size": 1,
+            "cpu_limit": 100,
+            "cpus": 0,
+            "data_volume": 0,
+            "ram": 1024,
+            "image_definition": "iol-xe-17-12-01",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "3129624a-e3cd-4a68-ab66-cc96d219ddc6",
+                    "device_number": 0,
+                    "label": "Line #0"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": 3
+        },
+        "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "3129624a-e3cd-4a68-ab66-cc96d219ddc6",
+                "device_number": 0,
+                "label": "Line #0"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": 3,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "742603f2-134a-42ba-b793-d3c4ad761906": {
+        "boot_disk_size": null,
+        "configuration": "bridge2",
+        "cpu_limit": null,
+        "cpus": null,
+        "data_volume": null,
+        "hide_links": false,
+        "id": "742603f2-134a-42ba-b793-d3c4ad761906",
+        "image_definition": null,
+        "lab_id": "d520a701-f4ac-4be1-8484-efb92bda9983",
+        "label": "ext-conn-1",
+        "node_definition": "external_connector",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": null,
+        "tags": [],
+        "x": -640,
+        "y": -240,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+            "boot_disk_size": null,
+            "cpu_limit": null,
+            "cpus": null,
+            "data_volume": null,
+            "ram": null,
+            "image_definition": null,
+            "vnc_key": null,
+            "serial_consoles": [],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+        "vnc_key": null,
+        "serial_consoles": [],
+        "resource_pool": null,
+        "iol_app_id": null
+    },
+    "55ea9299-e53a-4311-a583-c478c280635a": {
+        "boot_disk_size": 1,
+        "configuration": "hostname inserthostname-here\n!\n! In order to avoid entering a configuration dialog\n! on boot, please ensure that all ethernet interfaces\n! have some ip configuration present here such as the\n! example below:\n!\ninterface range Ethernet 0/0 - 3\n no ip address\n shutdown\n!\nend\n",
+        "cpu_limit": 100,
+        "cpus": 0,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "55ea9299-e53a-4311-a583-c478c280635a",
+        "image_definition": "iol-xe-17-12-01",
+        "lab_id": "d520a701-f4ac-4be1-8484-efb92bda9983",
+        "label": "iol-1",
+        "node_definition": "iol-xe",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 1024,
+        "tags": [],
+        "x": -480,
+        "y": -240,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+            "boot_disk_size": 1,
+            "cpu_limit": 100,
+            "cpus": 0,
+            "data_volume": 0,
+            "ram": 1024,
+            "image_definition": "iol-xe-17-12-01",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "54cfbde0-160d-432a-8ed0-79e88baba0e5",
+                    "device_number": 0,
+                    "label": "Line #0"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": 4
+        },
+        "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "54cfbde0-160d-432a-8ed0-79e88baba0e5",
+                "device_number": 0,
+                "label": "Line #0"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": 4,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "cefd1c96-aaef-4f70-8d8f-2c96e45fe54d": {
+        "boot_disk_size": null,
+        "configuration": "bridge1",
+        "cpu_limit": null,
+        "cpus": null,
+        "data_volume": null,
+        "hide_links": false,
+        "id": "cefd1c96-aaef-4f70-8d8f-2c96e45fe54d",
+        "image_definition": null,
+        "lab_id": "d520a701-f4ac-4be1-8484-efb92bda9983",
+        "label": "ext-conn-2",
+        "node_definition": "external_connector",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": null,
+        "tags": [],
+        "x": -1000,
+        "y": -240,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+            "boot_disk_size": null,
+            "cpu_limit": null,
+            "cpus": null,
+            "data_volume": null,
+            "ram": null,
+            "image_definition": null,
+            "vnc_key": null,
+            "serial_consoles": [],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+        "vnc_key": null,
+        "serial_consoles": [],
+        "resource_pool": null,
+        "iol_app_id": null
+    },
+    "49779eb7-b57b-4d10-b6f1-47924da4b4d3": {
+        "boot_disk_size": 1,
+        "configuration": "hostname inserthostname-here\n!\n! In order to avoid entering a configuration dialog\n! on boot, please ensure that all ethernet interfaces\n! have some ip configuration present here such as the\n! example below:\n!\ninterface range Ethernet 0/0 - 3\n no ip address\n shutdown\n!\nend\n",
+        "cpu_limit": 100,
+        "cpus": 0,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "49779eb7-b57b-4d10-b6f1-47924da4b4d3",
+        "image_definition": "iol-xe-17-12-01",
+        "lab_id": "d520a701-f4ac-4be1-8484-efb92bda9983",
+        "label": "iol-2",
+        "node_definition": "iol-xe",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 1024,
+        "tags": [],
+        "x": -920,
+        "y": -200,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+            "boot_disk_size": 1,
+            "cpu_limit": 100,
+            "cpus": 0,
+            "data_volume": 0,
+            "ram": 1024,
+            "image_definition": "iol-xe-17-12-01",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "3b2bfd5b-764e-41dc-b7f0-bf5038a2208c",
+                    "device_number": 0,
+                    "label": "Line #0"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": 5
+        },
+        "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "3b2bfd5b-764e-41dc-b7f0-bf5038a2208c",
+                "device_number": 0,
+                "label": "Line #0"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": 5,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "c541e6ca-73ff-4fa1-abf8-6aeed05587f4": {
+        "boot_disk_size": null,
+        "configuration": null,
+        "cpu_limit": null,
+        "cpus": null,
+        "data_volume": null,
+        "hide_links": false,
+        "id": "c541e6ca-73ff-4fa1-abf8-6aeed05587f4",
+        "image_definition": null,
+        "lab_id": "d520a701-f4ac-4be1-8484-efb92bda9983",
+        "label": "unmanaged-switch-0",
+        "node_definition": "unmanaged_switch",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": null,
+        "tags": [],
+        "x": -960,
+        "y": -40,
+        "state": "BOOTED",
+        "boot_progress": "Booted",
+        "operational": {
+            "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+            "boot_disk_size": null,
+            "cpu_limit": null,
+            "cpus": null,
+            "data_volume": null,
+            "ram": null,
+            "image_definition": null,
+            "vnc_key": null,
+            "serial_consoles": [],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+        "vnc_key": null,
+        "serial_consoles": [],
+        "resource_pool": null,
+        "iol_app_id": null,
+        "util": {
+            "times": {
+                "QUEUED": 1,
+                "STARTED": 5125301,
+                "BOOTED": 5125296
+            }
+        }
+    },
+    "089e9c5a-7767-46e0-9fef-94803ca9204c": {
+        "boot_disk_size": null,
+        "configuration": "bridge1",
+        "cpu_limit": null,
+        "cpus": null,
+        "data_volume": null,
+        "hide_links": false,
+        "id": "089e9c5a-7767-46e0-9fef-94803ca9204c",
+        "image_definition": null,
+        "lab_id": "d520a701-f4ac-4be1-8484-efb92bda9983",
+        "label": "ext-conn-3",
+        "node_definition": "external_connector",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": null,
+        "tags": [],
+        "x": -120,
+        "y": -280,
+        "state": "BOOTED",
+        "boot_progress": "Booted",
+        "operational": {
+            "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+            "boot_disk_size": null,
+            "cpu_limit": null,
+            "cpus": null,
+            "data_volume": null,
+            "ram": null,
+            "image_definition": null,
+            "vnc_key": null,
+            "serial_consoles": [],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+        "vnc_key": null,
+        "serial_consoles": [],
+        "resource_pool": null,
+        "iol_app_id": null,
+        "util": {
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 6320148,
+                "BOOTED": 6320140
+            }
+        }
+    },
+    "665af094-f044-439c-8b7b-ebd06028ed0f": {
+        "boot_disk_size": 1,
+        "configuration": "hostname inserthostname-here\n!\n! In order to avoid entering a configuration dialog\n! on boot, please ensure that all ethernet interfaces\n! have some ip configuration present here such as the\n! example below:\n!\ninterface range Ethernet 0/0 - 3\n no ip address\n shutdown\n!\nend\n",
+        "cpu_limit": 100,
+        "cpus": 0,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "665af094-f044-439c-8b7b-ebd06028ed0f",
+        "image_definition": "iol-xe-17-12-01",
+        "lab_id": "d520a701-f4ac-4be1-8484-efb92bda9983",
+        "label": "iol-3",
+        "node_definition": "iol-xe",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 1024,
+        "tags": [],
+        "x": 200,
+        "y": -200,
+        "state": "BOOTED",
+        "boot_progress": "Booted",
+        "operational": {
+            "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+            "boot_disk_size": 1,
+            "cpu_limit": 100,
+            "cpus": 0,
+            "data_volume": 0,
+            "ram": 1024,
+            "image_definition": "iol-xe-17-12-01",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "5f3276c1-260b-4439-ae70-c68abc7f6030",
+                    "device_number": 0,
+                    "label": "Line #0"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": 6
+        },
+        "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "5f3276c1-260b-4439-ae70-c68abc7f6030",
+                "device_number": 0,
+                "label": "Line #0"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": 6,
+        "util": {
+            "cpu_usage": 1.28,
+            "ram_usage": 42.54,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 1,
+                "STARTED": 6320146,
+                "BOOTED": 6320139
+            }
+        }
+    },
+    "abc203d9-4ba9-4c2b-9a2f-935204a14eee": {
+        "boot_disk_size": 2,
+        "configuration": "hostname inserthostname-here",
+        "cpu_limit": 100,
+        "cpus": 1,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "abc203d9-4ba9-4c2b-9a2f-935204a14eee",
+        "image_definition": "iosv-159-3-m8",
+        "lab_id": "d520a701-f4ac-4be1-8484-efb92bda9983",
+        "label": "iosv-0",
+        "node_definition": "iosv",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 512,
+        "tags": [],
+        "x": 120,
+        "y": -320,
+        "state": "BOOTED",
+        "boot_progress": "Booted",
+        "operational": {
+            "compute_id": "f59c3406-44ac-4093-8eda-1e7f130a6aca",
+            "boot_disk_size": 2,
+            "cpu_limit": 100,
+            "cpus": 1,
+            "data_volume": 0,
+            "ram": 512,
+            "image_definition": "iosv-159-3-m8",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "3a89041e-45e7-4f1f-95f7-fd79d059d869",
+                    "device_number": 0,
+                    "label": "Line #0"
+                },
+                {
+                    "console_key": "a206dd9c-7e22-4c4d-b8ab-486cb17ead37",
+                    "device_number": 1,
+                    "label": "Line #1"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "f59c3406-44ac-4093-8eda-1e7f130a6aca",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "3a89041e-45e7-4f1f-95f7-fd79d059d869",
+                "device_number": 0,
+                "label": "Line #0"
+            },
+            {
+                "console_key": "a206dd9c-7e22-4c4d-b8ab-486cb17ead37",
+                "device_number": 1,
+                "label": "Line #1"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": null,
+        "util": {
+            "cpu_usage": 5.85,
+            "ram_usage": 64.93,
+            "block0_wr_bytes": 20480,
+            "block0_rd_bytes": 307053056,
+            "times": {
+                "QUEUED": 4,
+                "STARTED": 6320141,
+                "BOOTED": 6319964
+            }
+        }
+    },
+    "9c63013e-2277-4f69-9a1a-c35e042587e5": {
+        "boot_disk_size": null,
+        "configuration": null,
+        "cpu_limit": null,
+        "cpus": null,
+        "data_volume": null,
+        "hide_links": false,
+        "id": "9c63013e-2277-4f69-9a1a-c35e042587e5",
+        "image_definition": null,
+        "lab_id": "d520a701-f4ac-4be1-8484-efb92bda9983",
+        "label": "unmanaged-switch-1",
+        "node_definition": "unmanaged_switch",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": null,
+        "tags": [],
+        "x": 0,
+        "y": -200,
+        "state": "BOOTED",
+        "boot_progress": "Booted",
+        "operational": {
+            "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+            "boot_disk_size": null,
+            "cpu_limit": null,
+            "cpus": null,
+            "data_volume": null,
+            "ram": null,
+            "image_definition": null,
+            "vnc_key": null,
+            "serial_consoles": [],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+        "vnc_key": null,
+        "serial_consoles": [],
+        "resource_pool": null,
+        "iol_app_id": null,
+        "util": {
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 6320150,
+                "BOOTED": 6320145
+            }
+        }
+    },
+    "95c2549f-3f9f-4e15-9d79-f73a62bfa5b9": {
+        "boot_disk_size": null,
+        "configuration": "bridge1",
+        "cpu_limit": null,
+        "cpus": null,
+        "data_volume": null,
+        "hide_links": false,
+        "id": "95c2549f-3f9f-4e15-9d79-f73a62bfa5b9",
+        "image_definition": null,
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "ext-conn-0",
+        "node_definition": "external_connector",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": null,
+        "tags": [],
+        "x": 200,
+        "y": 40,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+            "boot_disk_size": null,
+            "cpu_limit": null,
+            "cpus": null,
+            "data_volume": null,
+            "ram": null,
+            "image_definition": null,
+            "vnc_key": null,
+            "serial_consoles": [],
+            "resource_pool": null,
+            "iol_app_id": null
+        },
+        "compute_id": "2464ed49-104d-4e72-84d1-8da2cf67c04f",
+        "vnc_key": null,
+        "serial_consoles": [],
+        "resource_pool": null,
+        "iol_app_id": null
+    },
+    "442aa5c3-5cbf-42bf-9427-c8b5334e5153": {
+        "boot_disk_size": 1,
+        "configuration": "hostname inserthostname-here\n!\n! In order to avoid entering a configuration dialog\n! on boot, please ensure that all ethernet interfaces\n! have some ip configuration present here such as the\n! example below:\n!\ninterface range Ethernet 0/0 - 3\n no ip address\n shutdown\n!\nend\n",
+        "cpu_limit": 100,
+        "cpus": 0,
+        "data_volume": 0,
+        "hide_links": false,
+        "id": "442aa5c3-5cbf-42bf-9427-c8b5334e5153",
+        "image_definition": "iol-xe-17-12-01",
+        "lab_id": "4c29536e-ec21-4e7a-a4df-bc909dbc1297",
+        "label": "iol-2",
+        "node_definition": "iol-xe",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": 1024,
+        "tags": [],
+        "x": 400,
+        "y": 40,
+        "state": "STOPPED",
+        "boot_progress": "Not running",
+        "operational": {
+            "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+            "boot_disk_size": 1,
+            "cpu_limit": 100,
+            "cpus": 0,
+            "data_volume": 0,
+            "ram": 1024,
+            "image_definition": "iol-xe-17-12-01",
+            "vnc_key": null,
+            "serial_consoles": [
+                {
+                    "console_key": "99a0deee-4216-4bbc-9a15-89b4f7dfe8dc",
+                    "device_number": 0,
+                    "label": "Line #0"
+                }
+            ],
+            "resource_pool": null,
+            "iol_app_id": 7
+        },
+        "compute_id": "5a230ccd-916f-4c7b-91a2-0ed4882f7b41",
+        "vnc_key": null,
+        "serial_consoles": [
+            {
+                "console_key": "99a0deee-4216-4bbc-9a15-89b4f7dfe8dc",
+                "device_number": 0,
+                "label": "Line #0"
+            }
+        ],
+        "resource_pool": null,
+        "iol_app_id": 7,
+        "util": {
+            "cpu_usage": 0.0,
+            "ram_usage": 0.0,
+            "block0_wr_bytes": 0,
+            "block0_rd_bytes": 0,
+            "times": {
+                "QUEUED": 0,
+                "STARTED": 0,
+                "BOOTED": 0
+            }
+        }
+    },
+    "985c0a4d-dca9-4ff4-be34-a25ab903466c": {
+        "boot_disk_size": null,
+        "configuration": "NAT",
+        "cpu_limit": null,
+        "cpus": null,
+        "data_volume": null,
+        "hide_links": false,
+        "id": "985c0a4d-dca9-4ff4-be34-a25ab903466c",
+        "image_definition": null,
+        "lab_id": "a4d7ce1c-04b1-41f2-bb88-d3b13e7dccaa",
+        "label": "ext-conn-0",
+        "node_definition": "external_connector",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": null,
+        "tags": [],
+        "x": 520,
+        "y": 40,
+        "state": "DEFINED_ON_CORE",
+        "boot_progress": "Not running"
+    },
+    "dd09a6fa-bbd2-4858-8d83-4a28d9a0bef1": {
+        "boot_disk_size": null,
+        "configuration": "hostname inserthostname-here\nusername cisco\ngroup root-lr\ngroup cisco-support\npassword cisco\n!\nusername admin\ngroup root-lr\ngroup cisco-support\npassword cisco\n!\nusername lab\ngroup root-lr\ngroup cisco-support\npassword cisco\n!\nend\n",
+        "cpu_limit": null,
+        "cpus": null,
+        "data_volume": null,
+        "hide_links": false,
+        "id": "dd09a6fa-bbd2-4858-8d83-4a28d9a0bef1",
+        "image_definition": null,
+        "lab_id": "a4d7ce1c-04b1-41f2-bb88-d3b13e7dccaa",
+        "label": "xr9kv-0",
+        "node_definition": "iosxrv9000",
+        "parameters": {},
+        "pinned_compute_id": null,
+        "ram": null,
+        "tags": [],
+        "x": 440,
+        "y": 80,
+        "state": "DEFINED_ON_CORE",
+        "boot_progress": "Not running"
+    }
+}

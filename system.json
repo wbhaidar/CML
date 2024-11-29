@@ -1,0 +1,134 @@
+{
+    "licensing": {
+        "quota": 20,
+        "started": 2,
+        "user_quota": null,
+        "user_started": 1
+    },
+    "stats": {
+        "computes": {
+            "2464ed49-104d-4e72-84d1-8da2cf67c04f": {
+                "hostname": "cml-controller",
+                "is_controller": true,
+                "stats": {
+                    "cpu": {
+                        "load": [
+                            0.18,
+                            0.08,
+                            0.02
+                        ],
+                        "count": 16,
+                        "percent": 0.30625,
+                        "model": "Intel(R) Xeon(R) Gold 6442Y",
+                        "predicted": 4
+                    },
+                    "memory": {
+                        "total": 33657139200,
+                        "free": 32124862464,
+                        "used": 1052860416
+                    },
+                    "disk": {
+                        "total": 253012709376,
+                        "free": 225408450560,
+                        "used": 17242611712
+                    },
+                    "dominfo": {
+                        "allocated_cpus": 0,
+                        "allocated_memory": 0,
+                        "total_vms": 0,
+                        "running_vms": 0
+                    }
+                }
+            },
+            "f59c3406-44ac-4093-8eda-1e7f130a6aca": {
+                "hostname": "cml-compute-1",
+                "is_controller": false,
+                "stats": {
+                    "cpu": {
+                        "load": [
+                            0.03,
+                            0.04,
+                            0.02
+                        ],
+                        "count": 32,
+                        "percent": 0.090625,
+                        "model": "Intel(R) Xeon(R) Gold 6442Y",
+                        "predicted": 1
+                    },
+                    "memory": {
+                        "total": 211273191424,
+                        "free": 208690155520,
+                        "used": 1286221824
+                    },
+                    "disk": {
+                        "total": 1071041040384,
+                        "free": 1016386953216,
+                        "used": 11050217472
+                    },
+                    "dominfo": {
+                        "allocated_cpus": 1,
+                        "allocated_memory": 524288,
+                        "total_vms": 8,
+                        "running_vms": 1
+                    }
+                }
+            },
+            "5a230ccd-916f-4c7b-91a2-0ed4882f7b41": {
+                "hostname": "cml-compute-2",
+                "is_controller": false,
+                "stats": {
+                    "cpu": {
+                        "load": [
+                            0.01,
+                            0.01,
+                            0.0
+                        ],
+                        "count": 32,
+                        "percent": 0.03125,
+                        "model": "Intel(R) Xeon(R) Gold 6442Y",
+                        "predicted": 2
+                    },
+                    "memory": {
+                        "total": 211273191424,
+                        "free": 208828870656,
+                        "used": 1116831744
+                    },
+                    "disk": {
+                        "total": 1071041040384,
+                        "free": 1023973658624,
+                        "used": 3463512064
+                    },
+                    "dominfo": {
+                        "allocated_cpus": 1,
+                        "allocated_memory": 1048576,
+                        "total_vms": 13,
+                        "running_vms": 1
+                    }
+                }
+            }
+        },
+        "all": {
+            "cpu": {
+                "count": 80,
+                "percent": 0.11000000000000001
+            },
+            "memory": {
+                "total": 456203522048,
+                "free": 449643888640,
+                "used": 3455913984
+            },
+            "disk": {
+                "total": 2395094790144,
+                "free": 2265769062400,
+                "used": 31756341248
+            }
+        },
+        "controller": {
+            "disk": {
+                "total": 253012709376,
+                "free": 225408450560,
+                "used": 17242611712
+            }
+        }
+    }
+}
