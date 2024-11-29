@@ -1,19 +1,30 @@
 import requests 
-import json
+#import json
 from rich.table import Table
 from rich.text import Text
 from rich.console import Console
 from rich.panel import Panel
 import urllib3
+import logging
+
+
+# Log Confg
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+
+# Disable HTTPS warnings until Cert is intalled on CML
 urllib3.disable_warnings()
 
-# constants
+
+##########################
+# CONSTANTS
 CML_API_VERSION = "/v0"
 
-# global vars
-labs={}
-nodes={}
-system={}
+
+
+########################
+## HELPER FUNCTIONS
 
 # Helper module to convert Bytes to Largest appropriate unit for readability
 def convert_bytes(size):
@@ -24,33 +35,96 @@ def convert_bytes(size):
     return size
 
 
-# Helper to create headers
-def get_headers(auth_token):
+# Helper to create headers with authorisation token
+def get_headers(auth_token:str) -> dict:
     return {
 		'Content-Type': 'application/json',
 		'accept': 'application/json',
         'authorization': f"Bearer {auth_token}"
 	}
 
+# Handle API requests 
+def handle_request(url:str, method = 'get', headers:dict = None, payload:dict = None) -> dict :
+    try:
+        response = requests.request(
+            method=method,
+            url=url,
+            headers=headers,
+            json=payload,
+            verify=False
+        )
+        response.raise_for_status()
+        return response.json()
+    except requests.RequestException as e:
+        logger.error(f"Error during request to {url}: {e}")
+        return None
+    
 # Get authentication token
-def get_token(url, username, password):
+def get_token(url:str, username:str, password:str) -> str:
     api = f"{CML_API_VERSION}/authenticate"
 
     payload = {
 		"username": username,
 		"password": password
 	}
+    return handle_request(f"{url}{api}",method='post', payload=payload)
 
-    try:
-        response = requests.post(url + api, json=payload, verify=False)
-        response.raise_for_status()
-        return response.json()
-    except requests.RequestException as e:
-        printf(f"Unable to Get Token. Exception Msg {e}")
-        return None
+
+###########################
+## CORE FUNCTIONS
+
+# Fetch all lab details
+def fetch_labs(url, auth_token):
+    labs={}
+    headers = get_headers(auth_token)
+    labs_data=handle_request(f"{url}{CML_API_VERSION}/labs?show_all=true", headers=headers)
+    if labs_data:
+        for lab_id in labs_data:
+            lab_details={}
+            lab_details= handle_request(f"{url}{CML_API_VERSION}/labs/{lab_id}", headers=headers)
+            if lab_details:
+                lab_details['lab_nodes']= handle_request(f"{url}{CML_API_VERSION}/labs/{lab_id}/nodes", headers=headers) or {}
+                lab_details['lab_links']= handle_request(f"{url}{CML_API_VERSION}/labs/{lab_id}/links", headers=headers) or {}
+                labs[lab_id] = lab_details
+    return labs
+            
+# Fetch node details
+def fetch_nodes(url, auth_token):
+    nodes={}
+    headers = get_headers(auth_token)
+    nodes_data= handle_request(f"{url}{CML_API_VERSION}/nodes/", headers=headers)
+    if nodes_data:
+        for n in nodes_data:
+            id=n['id']
+            nodes[id]=n
+        return nodes
+    return {}
+
+def fetch_system_stats(url, auth_token):
+    headers=get_headers(auth_token)
+    licensing=handle_request(f"{url}{CML_API_VERSION}/diagnostics/licensing", headers=headers)
+    system_stats=handle_request(f"{url}{CML_API_VERSION}/system_stats", headers=headers)
+    return {'licensing': licensing, 'stats': system_stats}
+
+
+# update nodes struct resource utilisatoin
+def update_nodes_with_utilisation(url,auth_token,labs, nodes):
+    headers = get_headers(auth_token)
+
+    for lab in labs:
+        sim_data = handle_request(f"{url}{CML_API_VERSION}/labs/{lab}/simulation_stats", headers=headers)
+        if sim_data and 'nodes' in sim_data: 
+            for node_id, stats in sim_data['nodes'].items():
+                if node_id in nodes:
+                    nodes[node_id]['util']=stats
+
+
+
+##########################
+## DISPLAY FUNCTIONS
 
 # display a summary of labs
-def print_labs_summary(url):
+def print_labs_summary(url, labs):
     Console().print(f"[b]Total Topology Labs:[yellow] {str(len(labs))}[/b]")
 
     table = Table(title=f"Labs on {url}", title_style='bold')
@@ -73,32 +147,33 @@ def print_labs_summary(url):
     Console().print()
     Console().print(table)
 
-def print_sys_health():
-    total_licenses=system['licensing']['quota']
-    used_licences=system['licensing']['started']
+def print_sys_health(system):
+    licensing=system.get('licensing', {})
+    stats = system.get('stats',{})
+
+    total_licenses=licensing.get('quota', 0)
+    used_licences=licensing.get('started',0)
+
     Console().print(Panel(f"[b]CML Licenses (Total / Used):[yellow] {total_licenses} / {used_licences}[/b]"))
 
-    table = Table(
-            title=f"Node Health", 
-            title_style='bold'
-            )
+    table = Table(title=f"Node Health", title_style='bold')
     table.add_column('Hostname', justify='left', style='cyan')
     table.add_column('# CPUs', justify='center', style='cyan')
     table.add_column('CPU Load Avg\n(1min / 5min / 15min)', justify='center', style='cyan')
     table.add_column('Memory\nTotal   /   Free   /   Used %', justify='center', style='cyan')    
     table.add_column('Disk Space\nTotal   /   Free   /   Used %', justify='center', style='cyan')
     
-    for node, detail in system['stats']['computes'].items():
-        mem=detail['stats']['memory']
+    for compute in stats.get('computes', {}).values():
+        mem=compute['stats']['memory']
         mem_used=mem['used']/mem['total']*100
-        disk=detail['stats']['disk']
+        disk=compute['stats']['disk']
         disk_used=disk['used']/disk['total']*100
-        cpu_load=detail['stats']['cpu']['load']
-        load=' / '.join(map(str, detail['stats']['cpu']['load']))
+        cpu_load=compute['stats']['cpu']['load']
+        load=' / '.join(map(str, compute['stats']['cpu']['load']))
 
         table.add_row(
-            detail['hostname'],
-            str(detail['stats']['cpu']['count']),
+            compute['hostname'],
+            str(compute['stats']['cpu']['count']),
             f"{cpu_load[0]:>6}% {cpu_load[1]:>6}% {cpu_load[2]:>6}%",
             f"{convert_bytes(mem['total']):>10} {convert_bytes(mem['free']):>10} {mem_used:>6.1f}%",
             f"{convert_bytes(disk['total']):>10} {convert_bytes(disk['free']):>10} {disk_used:>6.1f}%"
@@ -109,7 +184,7 @@ def print_sys_health():
 
 
 # display detailed info about each lab
-def print_detailed_lab_info():
+def print_detailed_lab_info(labs,nodes):
 
     for labid, lab_info in labs.items():
         table = Table(
@@ -143,92 +218,19 @@ def print_detailed_lab_info():
         Console().print()
         Console().print(table)
 
-# update nodes struct resource utilisatoin
-def update_nodes_resource_util(url,auth_token):
-    headers = get_headers(auth_token)
-
-    for lab in labs.keys():
-        try:
-            sim_data = requests.get(
-                f"{url}{CML_API_VERSION}/labs/{lab}/simulation_stats", 
-                headers=headers, 
-                verify=False).json()
-            
-            node_sim_data=sim_data.get('nodes', {})
-        
-            for node, node_info in node_sim_data.items():
-                    nodes[node]['util']=node_info
-        except requests.RequestException as e:
-            print(f"Unable to get simulation stats for lab {lab} . Exception Message {e}")
-
-# update nodes struct with node details
-def update_nodes_dict(url, auth_token):
-    headers = get_headers(auth_token)
-    try:
-        node_data = requests.get(
-            f"{url}{CML_API_VERSION}/nodes/", 
-            headers=headers, verify=False).json()
-        for item in node_data:
-            node_id=item['id']
-            nodes[node_id]=item
-    except requests.RequestException as e:
-        print(f"Unable to Get Node Data. Exception Message {e}")
-
-
-def update_labs_dict(url, auth_token):
-    headers = get_headers(auth_token)
-    try:
-        lab_data = requests.get(
-            f"{url}{CML_API_VERSION}/labs?show_all=true", 
-            headers=headers, verify=False).json()
-        
-        for lab_id in lab_data:
-            labs[lab_id] = requests.get(
-                f"{url}{CML_API_VERSION}/labs/{lab_id}", 
-                headers=headers, verify=False).json()
-
-            labs[lab_id]['lab_nodes'] = requests.get(
-                f"{url}{CML_API_VERSION}/labs/{lab_id}/nodes", 
-                headers=headers, verify=False).json()
-
-            labs[lab_id]['lab_links'] = requests.get(
-                f"{url}{CML_API_VERSION}/labs/{lab_id}/links",
-                headers=headers, verify=False).json()     
-
-    except requests.RequestException as e:
-        print(f"Unable to Get Lab Data. Exception Msg: {e}")    
-
-def update_system_dict(url, auth_token):
-    headers = get_headers(auth_token)
-    try:
-        license = requests.get ( 
-            f"{url}{CML_API_VERSION}/diagnostics/licensing",
-            headers=headers, verify=False).json()
-        system['licensing']=license
-    except requests.RequestException as e:
-        print("Unable to get Licensing Data. Eception Msg: {e}")
-
-def update_system_health(url, auth_token):
-    headers=get_headers(auth_token)
-    try:
-        sys_health=requests.get (
-            f"{url}{CML_API_VERSION}/system_stats",
-            headers=headers, verify=False).json()
-        system['stats']=sys_health
-    except requests.RequestException as e:
-        print("Unable to get Sys Stats. Eception Msg: {e}")
 
 # export data to json files.
-def export_data_to_file():
+def export_data_to_file(labs={}, nodes={}, system={}):
+    import json
     try:
-        with open('nodes.json', 'w', encoding='utf-8') as f:
-            json.dump(nodes, f, ensure_ascii=False, indent=4)
+        with open('nodes.json', 'w',encoding='utf-8') as g:
+            json.dump(nodes, g, ensure_ascii=False, indent=4)
         with open('labs.json', 'w',encoding='utf-8') as f:
             json.dump(labs, f,ensure_ascii=False, indent=4)
         with open('system.json', 'w',encoding='utf-8') as f:
             json.dump(system, f,ensure_ascii=False, indent=4)            
     except Exception as e:
-        print(f"Failed to export JSON data to files. Exception: {e}")
+        logger.error(f"Failed to export JSON data to files. Exception: {e}")
 
 
 # main function to execute program
@@ -237,20 +239,21 @@ def main(server,username,password,export,actions):
 
     auth_token = get_token(url, username, password)
 
+    labs = fetch_labs(url, auth_token) if 'labs' in actions or 'all' in actions else {}
+    nodes = fetch_nodes(url, auth_token) if labs else {}
+    system = fetch_system_stats(url, auth_token) if 'health' in actions or 'all' in actions else {}
+
+
     # print summaries and details
     if 'health' in actions or 'all' in actions:
-        update_system_dict(url,auth_token)
-        update_system_health(url,auth_token)
-        print_sys_health()
+        print_sys_health(system)
     if 'labs' in actions or 'all' in actions:
-        update_labs_dict(url, auth_token)
-        update_nodes_dict(url, auth_token)
-        update_nodes_resource_util(url,auth_token)
-        print_labs_summary(url)
-        print_detailed_lab_info()
+        update_nodes_with_utilisation(url, auth_token, labs, nodes)
+        print_labs_summary(url, labs)
+        print_detailed_lab_info(labs,nodes)
 
     if export:
-        export_data_to_file()
+        export_data_to_file(labs, nodes, system)
 
 
 if __name__ == '__main__':
