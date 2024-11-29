@@ -1,0 +1,149 @@
+import pytest
+import responses
+from cml_script import (
+    convert_bytes,
+    get_headers,
+    handle_request,
+    fetch_labs,
+    fetch_system_stats,
+    VALID_ACTIONS,
+)
+
+
+# Constants for testing
+TEST_URL = "http://mock-cml-server.com"
+AUTH_TOKEN = "mock_auth_token"
+USERNAME = "mock_user"
+PASSWORD = "mock_password"
+VALID_RESPONSE = {"key": "value"}
+
+
+############################
+# Unit Tests for Utilities
+############################
+
+def test_convert_bytes():
+    assert convert_bytes(1023) == "1023.0 bytes"
+    assert convert_bytes(1024) == "1.0 KB"
+    assert convert_bytes(1048576) == "1.0 MB"
+
+
+def test_get_headers():
+    headers = get_headers(AUTH_TOKEN)
+    assert headers["Content-Type"] == "application/json"
+    assert headers["accept"] == "application/json"
+    assert headers["authorization"] == f"Bearer {AUTH_TOKEN}"
+
+
+############################
+# Mock API Requests
+############################
+
+@responses.activate
+def test_handle_request():
+    endpoint = f"{TEST_URL}/v0/test-endpoint"
+    responses.add(
+        responses.GET,
+        endpoint,
+        json=VALID_RESPONSE,
+        status=200,
+    )
+
+    result = handle_request(endpoint, headers=get_headers(AUTH_TOKEN))
+    assert result == VALID_RESPONSE
+
+
+@responses.activate
+def test_handle_request_failure():
+    endpoint = f"{TEST_URL}/v0/test-endpoint"
+    responses.add(
+        responses.GET,
+        endpoint,
+        json={"error": "Not Found"},
+        status=404,
+    )
+
+    result = handle_request(endpoint, headers=get_headers(AUTH_TOKEN))
+    assert result is None  # Expect None on failure
+
+
+############################
+# Functional Tests
+############################
+
+@responses.activate
+def test_fetch_labs():
+    labs_url = f"{TEST_URL}/v0/labs?show_all=true"
+    lab_details_url = f"{TEST_URL}/v0/labs/lab1"
+
+    # Mock labs list API
+    responses.add(
+        responses.GET,
+        labs_url,
+        json=["lab1"],
+        status=200,
+    )
+
+    # Mock lab details API
+    responses.add(
+        responses.GET,
+        lab_details_url,
+        json={"id": "lab1", "lab_title": "Test Lab", "state": "STOPPED"},
+        status=200,
+    )
+
+    # Mock nodes and links
+    responses.add(
+        responses.GET,
+        f"{lab_details_url}/nodes",
+        json={"node1": {"id": "node1", "state": "BOOTED"}},
+        status=200,
+    )
+    responses.add(
+        responses.GET,
+        f"{lab_details_url}/links",
+        json={"link1": {"id": "link1"}},
+        status=200,
+    )
+
+    labs = fetch_labs(TEST_URL, AUTH_TOKEN)
+    assert "lab1" in labs
+    assert labs["lab1"]["lab_title"] == "Test Lab"
+    assert labs["lab1"]["state"] == "STOPPED"
+    assert "lab_nodes" in labs["lab1"]
+    assert "lab_links" in labs["lab1"]
+
+
+@responses.activate
+def test_fetch_system_stats():
+    licensing_url = f"{TEST_URL}/v0/diagnostics/licensing"
+    system_stats_url = f"{TEST_URL}/v0/system_stats"
+
+    # Mock licensing and system stats API
+    responses.add(
+        responses.GET,
+        licensing_url,
+        json={"quota": 10, "started": 5},
+        status=200,
+    )
+    responses.add(
+        responses.GET,
+        system_stats_url,
+        json={"computes": {"node1": {"hostname": "Node1"}}},
+        status=200,
+    )
+
+    stats = fetch_system_stats(TEST_URL, AUTH_TOKEN)
+    assert "licensing" in stats
+    assert stats["licensing"]["quota"] == 10
+    assert "stats" in stats
+    assert stats["stats"]["computes"]["node1"]["hostname"] == "Node1"
+
+
+############################
+# Edge Case Tests
+############################
+
+def test_invalid_action():
+    invalid_action = "invalid"
+    assert invalid_action not in VALID_ACTIONS
